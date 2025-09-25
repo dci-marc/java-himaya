@@ -17,7 +17,7 @@ Add this library to your Maven project:
 <dependency>
     <groupId>com.github.dci-marc</groupId>
     <artifactId>java-himaya</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>x.x.x</version>
 </dependency>
 ```
 
