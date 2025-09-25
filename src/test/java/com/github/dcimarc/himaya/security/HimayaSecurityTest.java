@@ -2,6 +2,8 @@ package com.github.dcimarc.himaya.security;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HimayaSecurityTest {
@@ -10,7 +12,7 @@ class HimayaSecurityTest {
     void testGetVersion() {
         String version = HimayaSecurity.getVersion();
         assertNotNull(version);
-        assertEquals("1.0.0-SNAPSHOT", version);
+        assertEquals("1.0.0", version);
     }
 
     @Test
@@ -24,8 +26,8 @@ class HimayaSecurityTest {
         });
         
         // The AssertionError should be wrapped in an InvocationTargetException
-        assertTrue(exception instanceof java.lang.reflect.InvocationTargetException);
-        assertTrue(exception.getCause() instanceof AssertionError);
+        assertInstanceOf(InvocationTargetException.class, exception);
+        assertInstanceOf(AssertionError.class, exception.getCause());
     }
 
     @Test

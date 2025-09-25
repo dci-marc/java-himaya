@@ -26,15 +26,6 @@ class PathTraversalProtectionTest {
     }
 
     @Test
-    void testIsPathSafe_WithNullPath() {
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> PathTraversalProtection.isPathSafe(null)
-        );
-        assertEquals("File path cannot be null", exception.getMessage());
-    }
-
-    @Test
     void testIsPathWithinDirectory(@TempDir Path tempDir) throws IOException {
         File baseDir = tempDir.toFile();
         String basePath = baseDir.getAbsolutePath();
@@ -48,14 +39,6 @@ class PathTraversalProtectionTest {
     }
 
     @Test
-    void testIsPathWithinDirectory_WithNullParameters() {
-        assertThrows(NullPointerException.class, 
-            () -> PathTraversalProtection.isPathWithinDirectory(null, "file.txt"));
-        assertThrows(NullPointerException.class, 
-            () -> PathTraversalProtection.isPathWithinDirectory("/tmp", null));
-    }
-
-    @Test
     void testSanitizePath() {
         // normalize() preserves leading .. that cannot be resolved
         assertEquals("../file.txt", PathTraversalProtection.sanitizePath("../file.txt"));
@@ -63,15 +46,6 @@ class PathTraversalProtectionTest {
         assertEquals("path/to/file.txt", PathTraversalProtection.sanitizePath("path//to///file.txt"));
         assertEquals("path/to/file.txt", PathTraversalProtection.sanitizePath("path\\\\to\\\\file.txt"));
         assertEquals("path/to/file.txt", PathTraversalProtection.sanitizePath("/path/to/file.txt"));
-    }
-
-    @Test
-    void testSanitizePath_WithNullPath() {
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> PathTraversalProtection.sanitizePath(null)
-        );
-        assertEquals("File path cannot be null", exception.getMessage());
     }
 
     @Test
@@ -84,15 +58,8 @@ class PathTraversalProtectionTest {
         assertTrue(safePath.contains("file.txt"));
         
         // Test with dangerous path
-        String dangerousPath = PathTraversalProtection.createSafePath(baseDirectory, "../../../etc/passwd");
-        assertNull(dangerousPath);
-    }
-
-    @Test
-    void testCreateSafePath_WithNullParameters() {
-        assertThrows(NullPointerException.class,
-            () -> PathTraversalProtection.createSafePath(null, "file.txt"));
-        assertThrows(NullPointerException.class,
-            () -> PathTraversalProtection.createSafePath("/tmp", null));
+        assertThrows(IllegalArgumentException.class, () -> {
+            PathTraversalProtection.createSafePath(baseDirectory, "../../../etc/passwd");
+        });
     }
 }

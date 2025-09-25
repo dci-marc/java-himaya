@@ -1,5 +1,7 @@
 package com.github.dcimarc.himaya.security;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Main utility class for the Himaya Security library.
  * Provides convenient access to various security utilities.
@@ -7,21 +9,23 @@ package com.github.dcimarc.himaya.security;
  * Himaya (حماية) means "protection" in Arabic.
  */
 public class HimayaSecurity {
-    
+
+    private static final @NotNull String VERSION = "1.0.0";
+
     /**
      * Private constructor to prevent instantiation of utility class.
      */
     private HimayaSecurity() {
         throw new AssertionError("Utility class should not be instantiated");
     }
-    
+
     /**
      * Gets the version of the Himaya Security library.
      *
      * @return the library version
      */
-    public static String getVersion() {
-        return "1.0.0-SNAPSHOT";
+    public static @NotNull String getVersion() {
+        return HimayaSecurity.VERSION;
     }
     
     /**
@@ -36,7 +40,7 @@ public class HimayaSecurity {
      *
      * @return PathTraversalProtection utility methods
      */
-    public static PathTraversalProtectionHelper paths() {
+    public static @NotNull PathTraversalProtectionHelper paths() {
         return PathTraversalProtectionHelper.INSTANCE;
     }
     
@@ -52,7 +56,7 @@ public class HimayaSecurity {
      *
      * @return InputValidator utility methods
      */
-    public static InputValidatorHelper input() {
+    public static @NotNull InputValidatorHelper input() {
         return InputValidatorHelper.INSTANCE;
     }
     
@@ -60,23 +64,23 @@ public class HimayaSecurity {
      * Helper class for path traversal protection methods.
      */
     public static class PathTraversalProtectionHelper {
-        private static final PathTraversalProtectionHelper INSTANCE = new PathTraversalProtectionHelper();
+        private static final @NotNull PathTraversalProtectionHelper INSTANCE = new PathTraversalProtectionHelper();
         
         private PathTraversalProtectionHelper() {}
         
-        public boolean isPathSafe(String filePath) {
+        public boolean isPathSafe(@NotNull String filePath) {
             return PathTraversalProtection.isPathSafe(filePath);
         }
         
-        public boolean isPathWithinDirectory(String basePath, String filePath) {
+        public boolean isPathWithinDirectory(@NotNull String basePath, @NotNull String filePath) {
             return PathTraversalProtection.isPathWithinDirectory(basePath, filePath);
         }
         
-        public String sanitizePath(String filePath) {
+        public @NotNull String sanitizePath(@NotNull String filePath) {
             return PathTraversalProtection.sanitizePath(filePath);
         }
         
-        public String createSafePath(String baseDirectory, String relativePath) {
+        public @NotNull String createSafePath(@NotNull String baseDirectory, @NotNull String relativePath) {
             return PathTraversalProtection.createSafePath(baseDirectory, relativePath);
         }
     }
@@ -85,43 +89,43 @@ public class HimayaSecurity {
      * Helper class for input validation methods.
      */
     public static class InputValidatorHelper {
-        private static final InputValidatorHelper INSTANCE = new InputValidatorHelper();
+        private static final @NotNull InputValidatorHelper INSTANCE = new InputValidatorHelper();
         
         private InputValidatorHelper() {}
         
-        public boolean isValidEmail(String email) {
+        public boolean isValidEmail(@NotNull String email) {
             return InputValidator.isValidEmail(email);
         }
         
-        public boolean isAlphanumeric(String input) {
+        public boolean isAlphanumeric(@NotNull String input) {
             return InputValidator.isAlphanumeric(input);
         }
         
-        public boolean isAlphabetic(String input) {
+        public boolean isAlphabetic(@NotNull String input) {
             return InputValidator.isAlphabetic(input);
         }
         
-        public boolean isNumeric(String input) {
+        public boolean isNumeric(@NotNull String input) {
             return InputValidator.isNumeric(input);
         }
         
-        public boolean isValidLength(String input, int minLength, int maxLength) {
+        public boolean isValidLength(@NotNull String input, int minLength, int maxLength) {
             return InputValidator.isValidLength(input, minLength, maxLength);
         }
         
-        public boolean containsDangerousChars(String input) {
+        public boolean containsDangerousChars(@NotNull String input) {
             return InputValidator.containsDangerousChars(input);
         }
         
-        public String sanitizeInput(String input) {
+        public @NotNull String sanitizeInput(@NotNull String input) {
             return InputValidator.sanitizeInput(input);
         }
         
-        public boolean isValidUsername(String username) {
+        public boolean isValidUsername(@NotNull String username) {
             return InputValidator.isValidUsername(username);
         }
         
-        public boolean isValidPassword(String password) {
+        public boolean isValidPassword(@NotNull String password) {
             return InputValidator.isValidPassword(password);
         }
     }

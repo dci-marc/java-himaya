@@ -1,5 +1,7 @@
 package com.github.dcimarc.himaya.security;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.regex.Pattern;
 
 /**
@@ -9,17 +11,21 @@ import java.util.regex.Pattern;
  */
 public class InputValidator {
 
+    private InputValidator() {
+        throw new AssertionError("Utility class should not be instantiated");
+    }
+
     // Common regex patterns for validation
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+    private static final @NotNull Pattern EMAIL_PATTERN = Pattern.compile(
         "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
     );
     
-    private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
-    private static final Pattern ALPHA_PATTERN = Pattern.compile("^[a-zA-Z]+$");
-    private static final Pattern NUMERIC_PATTERN = Pattern.compile("^[0-9]+$");
+    private static final @NotNull Pattern ALPHANUMERIC_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
+    private static final @NotNull Pattern ALPHA_PATTERN = Pattern.compile("^[a-zA-Z]+$");
+    private static final @NotNull Pattern NUMERIC_PATTERN = Pattern.compile("^\\d+$");
     
     // Dangerous characters that might indicate malicious input
-    private static final String[] DANGEROUS_CHARS = {
+    private static final String @NotNull [] DANGEROUS_CHARS = {
         "<script", "</script>", "javascript:", "onload=", "onerror=",
         "onclick=", "onmouseover=", "'", "\"", ";", "--", "/*", "*/"
     };
@@ -30,8 +36,8 @@ public class InputValidator {
      * @param email the email address to validate
      * @return true if the email is valid, false otherwise
      */
-    public static boolean isValidEmail(String email) {
-        if (email == null || email.trim().isEmpty()) {
+    public static boolean isValidEmail(@NotNull String email) {
+        if (email.trim().isEmpty()) {
             return false;
         }
         return EMAIL_PATTERN.matcher(email.trim()).matches();
@@ -43,8 +49,8 @@ public class InputValidator {
      * @param input the string to validate
      * @return true if the string is alphanumeric, false otherwise
      */
-    public static boolean isAlphanumeric(String input) {
-        if (input == null || input.isEmpty()) {
+    public static boolean isAlphanumeric(@NotNull String input) {
+        if (input.isEmpty()) {
             return false;
         }
         return ALPHANUMERIC_PATTERN.matcher(input).matches();
@@ -56,8 +62,8 @@ public class InputValidator {
      * @param input the string to validate
      * @return true if the string contains only letters, false otherwise
      */
-    public static boolean isAlphabetic(String input) {
-        if (input == null || input.isEmpty()) {
+    public static boolean isAlphabetic(@NotNull String input) {
+        if (input.isEmpty()) {
             return false;
         }
         return ALPHA_PATTERN.matcher(input).matches();
@@ -69,8 +75,8 @@ public class InputValidator {
      * @param input the string to validate
      * @return true if the string is numeric, false otherwise
      */
-    public static boolean isNumeric(String input) {
-        if (input == null || input.isEmpty()) {
+    public static boolean isNumeric(@NotNull String input) {
+        if (input.isEmpty()) {
             return false;
         }
         return NUMERIC_PATTERN.matcher(input).matches();
@@ -84,10 +90,7 @@ public class InputValidator {
      * @param maxLength maximum allowed length
      * @return true if the length is valid, false otherwise
      */
-    public static boolean isValidLength(String input, int minLength, int maxLength) {
-        if (input == null) {
-            return minLength <= 0;
-        }
+    public static boolean isValidLength(@NotNull String input, int minLength, int maxLength) {
         int length = input.length();
         return length >= minLength && length <= maxLength;
     }
@@ -99,11 +102,8 @@ public class InputValidator {
      * @param input the string to check
      * @return true if dangerous characters are found, false otherwise
      */
-    public static boolean containsDangerousChars(String input) {
-        if (input == null) {
-            return false;
-        }
-        
+    public static boolean containsDangerousChars(@NotNull String input) {
+
         String lowerInput = input.toLowerCase();
         for (String dangerousChar : DANGEROUS_CHARS) {
             if (lowerInput.contains(dangerousChar)) {
@@ -120,14 +120,10 @@ public class InputValidator {
      * @param input the string to sanitize
      * @return sanitized string
      */
-    public static String sanitizeInput(String input) {
-        if (input == null) {
-            return null;
-        }
-        
+    public static @NotNull String sanitizeInput(@NotNull String input) {
         return input
                 .replaceAll("<script[^>]*>.*?</script>", "") // Remove script tags
-                .replaceAll("javascript:", "")               // Remove javascript: protocol
+                .replace("javascript:", "")               // Remove javascript: protocol
                 .replaceAll("on\\w+\\s*=", "")              // Remove event handlers
                 .replaceAll("[<>\"'&]", "")                 // Remove dangerous HTML chars
                 .trim();
@@ -140,9 +136,8 @@ public class InputValidator {
      * @param username the username to validate
      * @return true if the username is valid, false otherwise
      */
-    public static boolean isValidUsername(String username) {
-        return username != null && 
-               isValidLength(username, 3, 30) && 
+    public static boolean isValidUsername(@NotNull String username) {
+        return isValidLength(username, 3, 30) &&
                isAlphanumeric(username) &&
                !containsDangerousChars(username);
     }
@@ -155,13 +150,13 @@ public class InputValidator {
      * @param password the password to validate
      * @return true if the password meets minimum requirements, false otherwise
      */
-    public static boolean isValidPassword(String password) {
-        if (password == null || password.length() < 8) {
+    public static boolean isValidPassword(@NotNull String password) {
+        if (password.length() < 8) {
             return false;
         }
-        
+
         boolean hasLetter = password.matches(".*[a-zA-Z].*");
-        boolean hasDigit = password.matches(".*[0-9].*");
+        boolean hasDigit = password.matches(".*\\d.*");
         
         return hasLetter && hasDigit;
     }
