@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Himaya {
 
-  private static final @NotNull String VERSION = "0.1.4";
+  private static final @NotNull String VERSION = "0.1.5";
 
   /**
    * Private constructor to prevent instantiation of utility class.
