@@ -1,6 +1,5 @@
-package com.github.dcimarc.himaya.security;
+package com.github.dcimarc.himaya;
 
-import com.github.dcimarc.himaya.Himaya;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;

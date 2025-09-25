@@ -1,6 +1,5 @@
-package com.github.dcimarc.himaya.security;
+package com.github.dcimarc.himaya;
 
-import com.github.dcimarc.himaya.PathTraversalProtection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
