@@ -12,7 +12,7 @@ class HimayaTest {
   void testGetVersion() {
     String version = Himaya.getVersion();
     assertNotNull(version);
-    assertEquals("0.1.4", version);
+    assertEquals("0.1.5", version);
   }
 
   @Test
