@@ -1,4 +1,4 @@
-package com.github.dcimarc.himaya.security;
+package com.github.dcimarc.himaya;
 
 import org.jetbrains.annotations.NotNull;
 

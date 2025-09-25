@@ -1,4 +1,4 @@
-package com.github.dcimarc.himaya.security;
+package com.github.dcimarc.himaya;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -8,14 +8,14 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * Himaya (حماية) means "protection" in Arabic.
  */
-public class HimayaSecurity {
+public class Himaya {
 
   private static final @NotNull String VERSION = "1.0.0";
 
   /**
    * Private constructor to prevent instantiation of utility class.
    */
-  private HimayaSecurity() {
+  private Himaya() {
     throw new AssertionError("Utility class should not be instantiated");
   }
 
@@ -25,7 +25,7 @@ public class HimayaSecurity {
    * @return the library version
    */
   public static @NotNull String getVersion() {
-    return HimayaSecurity.VERSION;
+    return Himaya.VERSION;
   }
 
   /**

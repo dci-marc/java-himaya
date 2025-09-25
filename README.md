@@ -25,18 +25,18 @@ Add this library to your Maven project:
 
 ### Quick Start
 
-The main entry point is the `HimayaSecurity` class, which provides convenient access to all utilities:
+The main entry point is the `Himaya` class, which provides convenient access to all utilities:
 
 ```java
-import com.github.dcimarc.himaya.security.HimayaSecurity;
+import com.github.dcimarc.himaya.Himaya;
 
 // Path traversal protection
-if (HimayaSecurity.paths().isPathSafe("documents/file.txt")) {
+if (Himaya.paths().isPathSafe("documents/file.txt")) {
     // Process safe path
 }
 
 // Input validation
-if (HimayaSecurity.input().isValidEmail("user@example.com")) {
+if (Himaya.input().isValidEmail("user@example.com")) {
     // Process valid email
 }
 ```
@@ -46,7 +46,7 @@ if (HimayaSecurity.input().isValidEmail("user@example.com")) {
 Protect against directory traversal attacks:
 
 ```java
-import com.github.dcimarc.himaya.security.PathTraversalProtection;
+import com.github.dcimarc.himaya.PathTraversalProtection;
 
 // Check if a path is safe (doesn't contain traversal sequences)
 boolean safe = PathTraversalProtection.isPathSafe("documents/file.txt"); // true
@@ -67,7 +67,7 @@ String safePath = PathTraversalProtection.createSafePath("/app/uploads", "user/p
 Validate and sanitize user input:
 
 ```java
-import com.github.dcimarc.himaya.security.InputValidator;
+import com.github.dcimarc.himaya.InputValidator;
 
 // Email validation
 boolean validEmail = InputValidator.isValidEmail("user@example.com"); // true
