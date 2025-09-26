@@ -7,7 +7,7 @@
 
     <groupId>com.github.dci-marc</groupId>
     <artifactId>java-himaya</artifactId>
-    <version>1.0.0</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <name>Java Himaya</name>
@@ -22,7 +22,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jetbrains.annotations.version>26.0.2-1</jetbrains.annotations.version>
-        <junit.version>5.10.0</junit.version>
+        <junit.version>5.13.4</junit.version>
     </properties>
 
     <dependencies>
