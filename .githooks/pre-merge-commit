@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SWD="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
+# This script is a Git hook that runs before a merge commit is created.
+(
+  cd "${SWD}/../"
+  mvn test
+) || exit 1

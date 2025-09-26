@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Himaya {
 
-  private static final @NotNull String VERSION = "0.1.5";
+  private static final @NotNull String VERSION = "0.2.0";
 
   /**
    * Private constructor to prevent instantiation of utility class.
@@ -63,6 +63,7 @@ public class Himaya {
   /**
    * Helper class for path traversal protection methods.
    */
+  @SuppressWarnings({"java:S6548"})
   public static class PathTraversalProtectionHelper {
     private static final @NotNull PathTraversalProtectionHelper INSTANCE = new PathTraversalProtectionHelper();
 
@@ -89,6 +90,7 @@ public class Himaya {
   /**
    * Helper class for input validation methods.
    */
+  @SuppressWarnings({"java:S6548"})
   public static class InputValidatorHelper {
     private static final @NotNull InputValidatorHelper INSTANCE = new InputValidatorHelper();
 
