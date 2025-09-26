@@ -13,17 +13,16 @@ class HimayaTest {
   void testGetVersion() {
     String version = Himaya.getVersion();
     assertNotNull(version);
-    assertEquals("0.1.5", version);
+    assertEquals("0.2.0", version);
   }
 
   @Test
-  void testUtilityClassCannotBeInstantiated() {
+  void testUtilityClassCannotBeInstantiated() throws ReflectiveOperationException {
     // Use reflection to access the private constructor
-    final Constructor<Himaya>[] constructor = new Constructor[1];
-    assertThrows(AssertionError.class, () -> constructor[0] = Himaya.class.getDeclaredConstructor());
-
-    constructor[0].setAccessible(true);
-    Exception exception = assertThrows(Exception.class, constructor[0]::newInstance);
+    Constructor<Himaya> constructor =
+        Himaya.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+    Exception exception = assertThrows(Exception.class, constructor::newInstance);
 
     // The AssertionError should be wrapped in an InvocationTargetException
     assertInstanceOf(InvocationTargetException.class, exception);
