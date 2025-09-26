@@ -2,6 +2,7 @@ package com.github.dcimarc.himaya;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,13 +18,12 @@ class HimayaTest {
 
   @Test
   void testUtilityClassCannotBeInstantiated() {
-    Exception exception = assertThrows(Exception.class, () -> {
-      // Use reflection to try to instantiate the private constructor
-      java.lang.reflect.Constructor<Himaya> constructor =
-          Himaya.class.getDeclaredConstructor();
-      constructor.setAccessible(true);
-      constructor.newInstance();
-    });
+    // Use reflection to access the private constructor
+    final Constructor<Himaya>[] constructor = new Constructor[1];
+    assertThrows(AssertionError.class, () -> constructor[0] = Himaya.class.getDeclaredConstructor());
+
+    constructor[0].setAccessible(true);
+    Exception exception = assertThrows(Exception.class, constructor[0]::newInstance);
 
     // The AssertionError should be wrapped in an InvocationTargetException
     assertInstanceOf(InvocationTargetException.class, exception);
